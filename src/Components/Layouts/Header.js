@@ -4,12 +4,15 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import CreateDialog from '../Exercises/Dialogs/Create'
 
-export default props =>
+export default ({ muscles, onExerciseCreate }) =>
     <AppBar position="static">
         <Toolbar>
           <Typography variant="headline" color="inherit" style={{ flex: 1 }}>
             Fitness Database
           </Typography>
-          <CreateDialog/>
+          <CreateDialog 
+            muscles={muscles}
+            onCreate={onExerciseCreate}
+          />
         </Toolbar>
     </AppBar>
