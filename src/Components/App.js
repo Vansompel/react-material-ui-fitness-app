@@ -11,16 +11,26 @@ export default class extends Component {
   }
 
   getExercisesByMuscles() {
+    const initExercises = muscles.reduce((exercises, category) => ({
+      ...exercises,
+      [category]: []
+    }), {}) //Prevents the category to be removed when there are no exercises for that category
+
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
         const { muscles } = exercise
 
-        exercises[muscles] = exercises[muscles]
-          ? [...exercises[muscles], exercise]
-          : [exercise]
+        // exercises[muscles] = exercises[muscles]
+        //   ? [...exercises[muscles], exercise]
+        //   : [exercise]
+        // this condition checks if the property already exists in the exercises object
+        // change this with code below if you do want empty categories to be removed from display
 
+        exercises[muscles] = [...exercises[muscles], exercise]
+        // extracts all the existing exercises if there are any
         return exercises
-      }, {})
+      }, // {} empty object for when the category should be removed
+      initExercises) // pass the initial value of category exercises
     )
   }
 
@@ -45,6 +55,12 @@ export default class extends Component {
     }))
   }
 
+  handleExerciseDelete = id => {
+    this.setState(( { exercises }) => ({
+      exercises: exercises.filter(ex => ex.id !== id)
+    }))
+  }
+
   render() {
     const exercises = this.getExercisesByMuscles(),
       { category, exercise } = this.state
@@ -60,6 +76,7 @@ export default class extends Component {
         category={category}
         exercises={exercises}
         onSelect={this.handleExerciseSelect}
+        onDelete={this.handleExerciseDelete}
       />
 
       <Footer
