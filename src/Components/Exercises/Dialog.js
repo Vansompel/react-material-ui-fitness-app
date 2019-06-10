@@ -30,8 +30,8 @@ export default class extends Component {
 
         return (
             <Fragment>
-                <Fab onClick={this.handleToggle} size="small">
-                <AddIcon/>
+                <Fab onClick={this.handleToggle} size="small" color='secondary'>
+                    <AddIcon/>
                 </Fab>
                 <Dialog
                 open={open}
